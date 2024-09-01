@@ -1,10 +1,13 @@
 package runners;
 
-import org.junit.platform.suite.api.SelectPackages;
-import org.junit.platform.suite.api.Suite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import tests.LoginTest;
 
-@Suite
-@SelectPackages("tests") // Pacote onde seus testes estão localizados
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+        LoginTest.class
+})
 public class TestRunner {
-    // O JUnit executará todos os testes dentro do pacote "tests"
+    // Esta classe permanecerá vazia
 }

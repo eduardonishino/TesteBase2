@@ -8,7 +8,6 @@ public class DriverFactory {
 
     public static WebDriver getDriver() {
         if (driver == null) {
-            // Carrega o caminho do ChromeDriver a partir do config.properties
             String driverPath = ConfigLoader.getProperty("chrome.driver.path");
             System.setProperty("webdriver.chrome.driver", driverPath);
             driver = new ChromeDriver();

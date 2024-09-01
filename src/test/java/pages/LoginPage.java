@@ -1,42 +1,85 @@
 package pages;
 
-import org.openqa.selenium.By;
+import core.BasePage;
+import core.Elemento;
 import org.openqa.selenium.WebDriver;
+import utils.ConfigLoader;
 
-public class LoginPage {
+public class LoginPage extends BasePage {
 
-    private WebDriver driver;
-    private String url = "http://mantis-prova.base2.com.br"; // URL da página de login
-
-    // Localizadores dos elementos da página
-    private By usernameField = By.id("username");
-    private By passwordField = By.id("password");
-    private By loginButton = By.cssSelector(".login-button");
-    private By errorMessage = By.cssSelector(".error-message");
+    // Localizadores dos elementos da página encapsulados pela classe Elemento
+    private Elemento usernameField;
+    private Elemento passwordField;
+    private Elemento enterButton;
+    private Elemento errorMessage;
+    private Elemento loggedName;
 
     public LoginPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver); // Chama o construtor da classe BasePage
+
+        // Inicializando os elementos da página
+        usernameField = new Elemento(driver, "xpath", "//input[@placeholder='Nome de usuário']");
+        enterButton = new Elemento(driver, "xpath", "//input[@type='submit']");
+        passwordField = new Elemento(driver, "xpath", "//input[@placeholder='Senha']");
+        errorMessage = new Elemento(driver, "xpath", "//div[@class='alert alert-danger']//p[1]");
+        loggedName = new Elemento(driver, "xpath", "//span[normalize-space(text())='Eduardo_Nishino']");
     }
 
     // Método para abrir a página de login
     public void openLoginPage() {
+        String url = ConfigLoader.getProperty("base.url");
         driver.get(url);
     }
 
     // Método para realizar o login
-    public void login(String username, String password) {
-        driver.findElement(usernameField).sendKeys(username);
-        driver.findElement(passwordField).sendKeys(password);
-        driver.findElement(loginButton).click();
+    public void login() {
+        String username = ConfigLoader.getProperty("username");
+        String password = ConfigLoader.getProperty("password");
+
+        // Espera pelo campo de nome de usuário estar presente antes de interagir
+        esperarElemento(usernameField, BasePage.SMALL);
+        escrever(usernameField, username);
+        esperarElemento(enterButton, BasePage.SMALL);
+        clicar(enterButton);
+        esperarElemento(passwordField, BasePage.SMALL);
+        escrever(passwordField, password);
+        esperarElemento(enterButton, BasePage.SMALL);
+        clicar(enterButton);
+    }
+
+    // Método para login com credenciais inválidas
+    public void loginError() {
+        String username = "user";
+        String password = "password";
+
+        esperarElemento(usernameField, BasePage.SMALL);
+        escrever(usernameField, username);
+        esperarElemento(enterButton, BasePage.SMALL);
+        clicar(enterButton);
+        esperarElemento(passwordField, BasePage.SMALL);
+        escrever(passwordField, password);
+        esperarElemento(enterButton, BasePage.SMALL);
+        clicar(enterButton);
     }
 
     // Verifique se o login foi bem-sucedido
     public boolean isLoginSuccessful() {
-        return driver.getTitle().contains("Dashboard");
+        esperarElemento(enterButton, BasePage.SMALL);
+        return loggedName.pegarAtributo("textContent").equals("Eduardo_Nishino");
     }
 
     // Verifique se a mensagem de erro foi exibida
     public boolean isErrorMessageDisplayed() {
-        return driver.findElement(errorMessage).isDisplayed();
+        return !errorMessage.pegarAtributo("textContent").isEmpty();
+    }
+
+    public void validarLogin() {
+        if (isLoginSuccessful()) {
+            System.out.println("Login foi bem-sucedido.");
+        } else if (isErrorMessageDisplayed()) {
+            System.out.println("Ocorreu um erro no login.");
+        } else {
+            System.out.println("Estado desconhecido após o login.");
+        }
     }
 }

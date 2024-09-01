@@ -1,26 +1,33 @@
 package utils;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.After;
+import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 
 public class TestBase {
 
     protected WebDriver driver;
 
-    @BeforeEach
+    @Before
     public void setUp() {
         driver = DriverFactory.getDriver();
+        if (driver == null) {
+            throw new RuntimeException("O WebDriver não foi inicializado corretamente.");
+        }
         driver.manage().window().maximize();
     }
 
-    @AfterEach
+    @After
     public void tearDown() {
-        DriverFactory.quitDriver();
+        if (driver != null) {
+            DriverFactory.quitDriver();
+        }
     }
 
-    // Método para navegar até uma URL
     protected void navigateTo(String url) {
+        if (driver == null) {
+            throw new RuntimeException("O WebDriver não está inicializado.");
+        }
         driver.get(url);
     }
 }

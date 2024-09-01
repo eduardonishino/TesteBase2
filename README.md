@@ -6,7 +6,8 @@ Este é um projeto de automação de testes criado usando *Java* com *Selenium W
 
 Abaixo está a estrutura básica do projeto e uma breve explicação de cada componente:
 
-TesteBase2/ ├── src/ │ ├── main/ │ └── test/ │ ├── java/ │ │ ├── core/ │ │ │ ├── BasePage.java │ │ │ └── Elemento.java │ │ ├── pages/ │ │ │ ├── DashboardPage.java │ │ │ ├── LoginPage.java │ │ │ └── CreateTaskPage.java │ │ ├── runners/ │ │ │ └── TestRunner.java │ │ ├── tests/ │ │ │ └── CreateTaskTest.java │ │ └── utils/ │ │ ├── ConfigLoader.java │ │ ├── DriverFactory.java │ │ └── TestBase.java │ └── resources/ │ ├── config.properties │ └── logback.xml ├── .gitignore └── pom.xml
+![image](https://github.com/user-attachments/assets/46d2fa88-1b07-4dba-9089-c3f2a7599d2a)
+
 
 ### Explicação dos Arquivos e Diretórios
 

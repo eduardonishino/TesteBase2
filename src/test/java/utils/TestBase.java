@@ -8,6 +8,7 @@ public class TestBase {
 
     protected WebDriver driver;
 
+    //Este método é executado antes de cada teste. Ele é anotado com @Before, o que indica que ele deve ser executado antes de cada método de teste.
     @Before
     public void setUp() {
         driver = DriverFactory.getDriver();
@@ -17,6 +18,7 @@ public class TestBase {
         driver.manage().window().maximize();
     }
 
+    //Este método é executado após cada teste. Ele é anotado com @After, o que indica que ele deve ser executado após cada método de teste.
     @After
     public void tearDown() {
         if (driver != null) {
@@ -24,6 +26,7 @@ public class TestBase {
         }
     }
 
+    //Um método protegido que facilita a navegação para uma URL específica.
     protected void navigateTo(String url) {
         if (driver == null) {
             throw new RuntimeException("O WebDriver não está inicializado.");

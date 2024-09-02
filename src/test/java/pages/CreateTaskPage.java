@@ -3,10 +3,6 @@ package pages;
 import core.BasePage;
 import core.Elemento;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import utils.ConfigLoader;
-
-import java.io.File;
 
 public class CreateTaskPage extends BasePage {
 
@@ -69,6 +65,7 @@ public class CreateTaskPage extends BasePage {
         clicar(option);
     }
 
+    // Método é utilizado para selecionar uma opção específica dentro de um dropdown (caixa de seleção) de gravidade em uma página web.
     public void selecionarGravidade(String gravidade) {
         esperarElemento(selectGravidade, SMALL);
         clicar(selectGravidade);
@@ -77,6 +74,7 @@ public class CreateTaskPage extends BasePage {
         clicar(option);
     }
 
+    // Método é usado para selecionar uma prioridade em um dropdown de prioridades. Aqui está o que ele faz passo a passo:
     public void selecionarPrioridade(String prioridade) {
         esperarElemento(selectPrioridade, SMALL);
         clicar(selectPrioridade);

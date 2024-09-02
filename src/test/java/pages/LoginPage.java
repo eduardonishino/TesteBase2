@@ -51,7 +51,6 @@ public class LoginPage extends BasePage {
     public void loginError() {
         String username = "user";
         String password = "password";
-
         esperarElemento(usernameField, BasePage.SMALL);
         escrever(usernameField, username);
         esperarElemento(enterButton, BasePage.SMALL);
@@ -73,6 +72,7 @@ public class LoginPage extends BasePage {
         return !errorMessage.pegarAtributo("textContent").isEmpty();
     }
 
+    //Tem a função de verificar se o login em um sistema web foi bem-sucedido, se houve um erro ou se ocorreu uma situação inesperada. Ele faz isso por meio de condições baseadas em dois métodos auxiliares (isLoginSuccessful() e isErrorMessageDisplayed()).
     public void validarLogin() {
         if (isLoginSuccessful()) {
             System.out.println("Login foi bem-sucedido.");
